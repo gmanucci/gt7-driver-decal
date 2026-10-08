@@ -1,6 +1,6 @@
 import { builtInFlags, builtInFonts } from '@gt7/assets';
 import { DefaultSvgOptimizer, DefaultSvgRenderer, utf8ByteLength } from '@gt7/core';
-import { FLAG_BUDGET_BYTES } from './config.ts';
+import { FLAG_BUDGET_BYTES, FLAG_OVERRIDES } from './config.ts';
 
 const errors: string[] = [];
 const FORBIDDEN = /<image|<filter|mix-blend-mode|feBlend|<style|base64/i;
@@ -43,7 +43,8 @@ for (const flag of builtInFlags) {
     }),
   );
   const bytes = utf8ByteLength(svg);
-  if (bytes > FLAG_BUDGET_BYTES) errors.push(`flag ${flag.countryCode}: ${bytes} B exceeds ${FLAG_BUDGET_BYTES} B`);
+  const budget = FLAG_OVERRIDES[flag.countryCode]?.budgetBytes ?? FLAG_BUDGET_BYTES;
+  if (bytes > budget) errors.push(`flag ${flag.countryCode}: ${bytes} B exceeds ${budget} B`);
   if (FORBIDDEN.test(svg)) errors.push(`flag ${flag.countryCode}: forbidden construct`);
 }
 

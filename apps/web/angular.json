@@ -54,6 +54,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "prebundle": {
+              "exclude": ["@gt7/core", "@gt7/assets"]
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "web:build:production"

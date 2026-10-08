@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import type { Alignment, DecalRequest, NameMode } from '@gt7/core';
 import { DecalPreview } from './decal-preview';
 import { DecalService } from './decal.service';
+import { pickRandomDriver } from './featured-drivers';
 import { SizeIndicator } from './size-indicator';
 
 const NAME_MODE_LABELS: Record<NameMode, string> = {
@@ -116,15 +117,16 @@ const ALIGNMENTS: readonly Alignment[] = ['left', 'center', 'right'];
 })
 export class DecalGeneratorPage {
   protected readonly service = inject(DecalService);
+  private readonly initialDriver = pickRandomDriver(new Set(this.service.flags.map((flag) => flag.countryCode)));
   protected readonly alignments = ALIGNMENTS;
   protected readonly nameModes = (Object.keys(NAME_MODE_LABELS) as NameMode[]).map((id) => ({
     id,
     label: NAME_MODE_LABELS[id],
   }));
 
-  protected readonly name = signal('Max Verstappen');
+  protected readonly name = signal(this.initialDriver.name);
   protected readonly nameMode = signal<NameMode>('full');
-  protected readonly country = signal('NL');
+  protected readonly country = signal(this.initialDriver.country);
   protected readonly font = signal(this.service.fonts[0]?.id ?? '');
   protected readonly layout = signal(this.service.layouts[0]?.id ?? '');
   protected readonly alignment = signal<Alignment>('center');

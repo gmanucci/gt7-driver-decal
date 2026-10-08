@@ -1,7 +1,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
-import { FLAGS_OUTPUT, FLAG_BUDGET_BYTES, MAX_REDUCTION_LEVEL } from './config.ts';
+import { FLAGS_OUTPUT, FLAG_BUDGET_BYTES, FLAG_OVERRIDES, MAX_REDUCTION_LEVEL } from './config.ts';
 import { buildFlag, REDUCTION_LEVELS, type BuiltFlag } from './flag-builder.ts';
 import { createPaperEnv } from './paper-env.ts';
 
@@ -28,12 +28,13 @@ const failures: string[] = [];
 for (const country of selected) {
   try {
     const svg = readFileSync(join(flagIconsDir, country.flag_4x3), 'utf8');
+    const override = FLAG_OVERRIDES[country.code.toUpperCase()];
     built.push(
       buildFlag(
         env,
         { countryCode: country.code.toUpperCase(), name: country.name, svg },
-        FLAG_BUDGET_BYTES,
-        MAX_REDUCTION_LEVEL,
+        override?.budgetBytes ?? FLAG_BUDGET_BYTES,
+        override?.maxLevel ?? MAX_REDUCTION_LEVEL,
       ),
     );
   } catch (error) {

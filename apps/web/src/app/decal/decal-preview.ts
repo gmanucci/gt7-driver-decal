@@ -54,10 +54,14 @@ export class DecalPreview {
     () => ({ checker: 'bg-zinc-100', dark: 'bg-zinc-950', light: 'bg-zinc-100' })[this.background()],
   );
 
-  // The SVG is produced by our own engine from numeric path data only, never raw user text.
-  protected readonly url = computed(() =>
-    this.sanitizer.bypassSecurityTrustUrl(
-      `data:image/svg+xml;charset=utf-8,${encodeURIComponent(this.decal().svg)}`,
-    ),
-  );
+  // GT7 colours decals in-game, so the SVG text is unfilled (black). On the dark preview we
+  // fill the root white; flag shapes keep their own explicit fills.
+  protected readonly url = computed(() => {
+    const svg = this.decal().svg;
+    const shown = this.background() === 'dark' ? svg.replace('<svg ', '<svg fill="#fff" ') : svg;
+    // The SVG is produced by our own engine from numeric path data only, never raw user text.
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `data:image/svg+xml;charset=utf-8,${encodeURIComponent(shown)}`,
+    );
+  });
 }
