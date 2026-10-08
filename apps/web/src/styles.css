@@ -1,0 +1,74 @@
+@import '@fontsource/orbitron/500.css';
+@import '@fontsource/orbitron/700.css';
+@import '@fontsource/rajdhani/500.css';
+@import '@fontsource/rajdhani/600.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Orbitron', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
+  --color-accent: #ff3b1f;
+  --color-accent-hot: #ff6a1a;
+  --animate-decal-in: decal-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  @keyframes decal-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  background-color: #09090b;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 80% -10%, rgb(255 59 31 / 0.12), transparent),
+    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size: auto, 40px 40px, 40px 40px;
+}
+
+@layer components {
+  .panel {
+    @apply relative rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 backdrop-blur-sm;
+  }
+  .panel::before {
+    content: '';
+    @apply absolute -top-px left-4 h-0.5 w-10 bg-gradient-to-r from-accent-hot to-accent;
+  }
+  .panel-title {
+    @apply font-display text-xs font-bold uppercase tracking-[0.25em] text-zinc-300;
+  }
+  .field-label {
+    @apply font-display mb-1 block text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400;
+  }
+  .field {
+    @apply w-full rounded border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 transition-colors;
+    @apply focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none;
+  }
+  .btn-primary {
+    @apply font-display cursor-pointer rounded bg-gradient-to-r from-accent to-accent-hot px-5 py-2.5 text-sm font-bold uppercase tracking-[0.15em] text-white transition;
+    @apply hover:brightness-110 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none;
+    @apply disabled:cursor-not-allowed disabled:bg-none disabled:bg-zinc-700 disabled:text-zinc-400 disabled:brightness-100;
+  }
+  .btn-secondary {
+    @apply font-display cursor-pointer rounded border border-zinc-600 px-5 py-2.5 text-sm uppercase tracking-[0.15em] text-zinc-200 transition;
+    @apply hover:bg-zinc-800 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

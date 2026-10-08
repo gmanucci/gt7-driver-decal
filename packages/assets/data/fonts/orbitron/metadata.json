@@ -1,0 +1,16 @@
+{
+  "id": "orbitron",
+  "name": "Orbitron",
+  "description": "Wide geometric sci-fi lettering",
+  "weight": 700,
+  "license": "OFL-1.1",
+  "source": "@fontsource/orbitron@5.3.0",
+  "glyphCount": 77,
+  "kerningPairs": 36,
+  "missingCharacters": [
+    "Ð",
+    "Ø",
+    "Þ",
+    "Ÿ"
+  ]
+}

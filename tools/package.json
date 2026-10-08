@@ -1,0 +1,29 @@
+{
+  "name": "@gt7/tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:flags": "tsx src/build-flags.ts",
+    "build:fonts": "tsx src/build-fonts.ts",
+    "validate": "tsx src/validate-assets.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@gt7/assets": "*",
+    "@gt7/core": "*"
+  },
+  "devDependencies": {
+    "@fontsource/orbitron": "^5.2.0",
+    "@fontsource/rajdhani": "^5.2.0",
+    "@fontsource/saira": "^5.2.0",
+    "@types/node": "^24.0.0",
+    "flag-icons": "^7.5.0",
+    "jsdom": "^28.0.0",
+    "opentype.js": "^2.0.0",
+    "paper": "^0.12.18",
+    "paperjs-offset": "^2.2.1",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.0"
+  }
+}

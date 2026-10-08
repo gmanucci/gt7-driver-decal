@@ -1,0 +1,16 @@
+{
+  "name": "gt7-driver-decal",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "tools"
+  ],
+  "scripts": {
+    "test:core": "npm test -w @gt7/core",
+    "build:core": "npm run build -w @gt7/core",
+    "start": "npm start -w @gt7/web",
+    "build:web": "npm run build -w @gt7/web",
+    "test:web": "npm test -w @gt7/web -- --no-watch"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rajdhani",
+  "name": "Rajdhani",
+  "description": "Compact squared motorsport lettering",
+  "weight": 700,
+  "license": "OFL-1.1",
+  "source": "@fontsource/rajdhani@5.3.0",
+  "glyphCount": 80,
+  "kerningPairs": 0,
+  "missingCharacters": [
+    "Ÿ"
+  ]
+}
